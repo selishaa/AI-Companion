@@ -1,14 +1,36 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeature = ["fullTextSearch", "fullTextIndex" ]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  relationMode = "Prisma"
+  relationMode = "prisma"
 }
  
 model Category {
   id             String @id @default(uuid())
   name           String
+  companion      Companion[]
+}
+
+model Companion {
+   id             String @id @default(uuid())
+   usedId         String
+   userName       String
+   src            String
+   name           String 
+   description    String
+   instructions   String 
+   seed           String 
+
+
+   createdAt      DateTime @default(now())
+   updatedAt      DateTime @updatedAt
+   category       Category @relation(fields: [categoryId], references: [id])
+   categoryId     String
+
+   @@index([categoryId])
+   
 }
