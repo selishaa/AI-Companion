@@ -154,4 +154,5 @@ export async function POST(
         return new Response("Internal Server Error", {status: 500});
     }
 }
-    
+    // const { prompt } = await request.json();
+    // const user = await currentUser();
